@@ -2,9 +2,14 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+    # Игнорирај само Dependabot конфигурација, не цел workflow
+    paths-ignore:
+      - '.github/dependabot.yml'
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build:
