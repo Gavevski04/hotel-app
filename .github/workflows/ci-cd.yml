@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-    # Игнорирај само Dependabot конфигурација, не цел workflow
     paths-ignore:
       - '.github/dependabot.yml'
   pull_request:
@@ -28,15 +27,15 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v3
       - name: Deploy
         run: echo "Тука оди твојата команда за деплој"
 
   code-scanning:
-    runs-on: ubuntu-latest
     needs: build
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Initialize CodeQL
